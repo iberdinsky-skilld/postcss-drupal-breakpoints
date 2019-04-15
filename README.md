@@ -6,22 +6,52 @@
 [ci-img]:  https://travis-ci.org/iberdinsky-skilld/postcss-drupal-breakpoints.svg
 [ci]:      https://travis-ci.org/iberdinsky-skilld/postcss-drupal-breakpoints
 
+## Input
+
+css
 ```css
-.foo {
-    /* Input example */
+@drupal-breakpoint wide_1x {
+  .pager {
+    display: none;
+  }
 }
 ```
 
-```css
-.foo {
-  /* Output example */
-}
+THEMENAME.breakpoints.yml
+```yml
+THEMENAME.mobile:
+  label: mobile
+  mediaQuery: '(min-width: 0em)'
+  weight: 0
+  multipliers:
+    - 1x
+THEMENAME.wide:
+  label: wide
+  mediaQuery: 'screen and (min-width: 40em)'
+  weight: 1
+  multipliers:
+    - 1x
 ```
 
-## Usage
-
+postcss.config.js
 ```js
-postcss([ require('postcss-drupal-breakpoints') ])
+module.exports = ctx => ({
+  plugins: [
+    require('postcss-drupal-breakpoints')({
+      importFrom: './THEMENAME.breakpoints.yml',
+      themeName: 'THEMENAME'
+    }),
+  ]
+});
+
 ```
 
-See [PostCSS] docs for examples for your environment.
+## Output
+
+```css
+@media screen and (min-width: 40em) {
+  .pager {
+    display: none;
+  }
+}
+```
