@@ -1,6 +1,6 @@
 {
   "name": "postcss-drupal-breakpoints",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "PostCSS plugin to get drupal theme breakpoints in css variables",
   "keywords": [
     "postcss",
